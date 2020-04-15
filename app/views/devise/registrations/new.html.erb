@@ -1,0 +1,42 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1 ,shrink-t0-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<div class="conatiner ">
+    <div class="row justify-content-center">
+       <div class="d-flex flex-column my-4 border border-secondary p-4 bg-info">
+            <h2 class="d-flex justify-content-center mb-4 bg-light rounded-pill px-5 py-2 text-info mx-4" ><span class="px-2">Sign Up</span></h2>
+
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+              <div class="field ">
+                <p class="bg-secondary text-white m-0"> <%= f.label :email  , :class=>'editSignUp' %></p>
+                <p class="mt-1">  <%= f.email_field :email, autofocus: true, autocomplete: "email" ,:class=>'setwidthofForgetInputElement'%> </p>
+              </div>
+
+              <div class="field">
+               <p class="bg-secondary text-white m-0">  <%= f.label :password , :class=>'editSignUp' %>  </p>
+                <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %><br />
+                <p class="mt-1"><%= f.password_field :password, autocomplete: "new-password" ,:class=>'setwidthofForgetInputElement' %> </p>
+              </div>
+
+              <div class="field ">
+                <p class="bg-secondary text-white m-0 "> <%= f.label :password_confirmation , :class=>'editSignUp' %> </p> 
+               <p class="mt-1"> <%= f.password_field :password_confirmation, autocomplete: "new-password",:class=>'setwidthofForgetInputElement' %> </p>
+              </div>
+
+              <div class="actions d-flex justify-content-between mb-3">
+               <p> <%= f.submit "Sign up" , :class => 'btn btn-success'%></p>
+               <p> <%= link_to 'Back', showallimages_path, :class => 'btn btn-dark' %></p>
+              </div>
+            <% end %>
+          <%= render "devise/shared/links" %> 
+      </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,36 @@
+<div class="container">
+<div class="row justify-content-center">
+  <div class="d-flex flex-column my-4 border border-secondary p-4 bg-info">
+      <h2 class="d-flex justify-content-center mb-4 bg-light rounded-pill px-5 py-2  mx-4 text-info" ><span class="px-2">Log In</span></h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+        <p class="bg-secondary text-white m-0"> <%= f.label :email  , :class=>'editSignUp' %></p>
+        <p class="mt-1">  <%= f.email_field :email, autofocus: true, autocomplete: "email",:class=>'setwidthofForgetInputElement' %> </p>
+  </div>
+
+  <div class="field">
+        <p class="bg-secondary text-white m-0">  <%= f.label :password , :class=>'editSignUp' %>  </p>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <p class="mt-1"><%= f.password_field :password, autocomplete: "current-password",:class=>'setwidthofForgetInputElement' %> </p>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="actions d-flex justify-content-between mb-3">
+     <p> <%= f.submit "Log in", :class => 'btn btn-success' %> </p>
+      <p> <%= link_to 'Back', showallimages_path, :class => 'btn btn-dark' %></p>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+    </div>
+</div>
+</div>

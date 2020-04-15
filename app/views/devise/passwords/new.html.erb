@@ -1,0 +1,24 @@
+
+<div class="container-fliud mx-5">
+    <div class="row justify-content-center mx-5">
+       <div class="d-flex flex-column my-4 border border-secondary p-3 bg-info mx-1 ">
+            <h2 class="d-flex justify-content-center mb-4 bg-light rounded-pill p-2 text-info text-center " >Forgot your password?</h2>
+
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+              <div class="field ">
+                    <p class="bg-secondary text-white m-0">  <%= f.label :email  , :class=>'editSignUp' %></p>
+                    <p class="mt-1" >  <%= f.email_field :email, autofocus: true, autocomplete: "email" ,:class=>'setwidthofForgetInputElement' %> </p>
+              </div>
+
+              <div class="actions mb-5">
+                <%= f.submit "Send me reset password instructions" , :class => 'btn btn-success' %>
+              </div>
+            <% end %>
+
+            <%= render "devise/shared/links" %>
+
+      </div>
+    </div>
+</div>
