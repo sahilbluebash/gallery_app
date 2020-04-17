@@ -5,9 +5,11 @@ class ImagegalleriesController < ApplicationController
   # GET /imagegalleries.json
  
   def index
-    @imagegalleries = current_user.imagegalleries.page( params[:page])
-    
+   
+      @imagegalleries = current_user.imagegalleries.page( params[:page])
+  
   end
+
   # GET /imagegalleries/1
   # GET /imagegalleries/1.json
   def show
@@ -54,12 +56,26 @@ class ImagegalleriesController < ApplicationController
 
   # DELETE /imagegalleries/1
   # DELETE /imagegalleries/1.json
-  def destroy
-    @imagegallery.destroy
+  def destroy  
+
+    if params[:attachment_id]
+      @imagegallery.files.find_by_id(params[:attachment_id]).purge
+    
+    # handle purge all
+    elsif params[:purge]
+      @imagegallery.files.purge
+      
+    # handle destroy resource
+    else
+      @imagegallery.destroy
+      
+    end
+
     respond_to do |format|
       format.html { redirect_to imagegalleries_url, notice: 'Imagegallery was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :no_content } 
     end
+
   end
 
 
@@ -76,6 +92,18 @@ class ImagegalleriesController < ApplicationController
     end
   end
 
+  def tagged
+    if params[:tag].present?
+      @imagegalleries= Imagegallery.tagged_with(params[:tag])
+      render template: "imagegalleries/showrelatedtags"
+   else
+      @imagegalleries = Imagegallery.all
+    end
+  end
+
+ 
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_imagegallery
@@ -84,7 +112,7 @@ class ImagegalleriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def imagegallery_params
-      params.require(:imagegallery).permit(:title, :caption, :image)
+      params.require(:imagegallery).permit(:title, :caption, :image , :tag_list)
     end
 
     

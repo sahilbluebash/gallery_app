@@ -8,7 +8,7 @@
 
     <div class="container-fluid p-0">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-                <button classImage="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                   <a class="navbar-brand disabled" >IMAGE GALLERY</a>
@@ -40,13 +40,10 @@
                   <% @imagegalleries.each do |imagegallery| %>
 
                         <div class="card mt-4 mx-4" style="width:310px;">      
-                          <%=  image_tag(imagegallery.image , class:"onHoverCardImg card-img-top img-fluid " )  %>  
+                          <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
                                 <div class="card-body ">
-                                  <p class="card-text card-text-edit"><%=   imagegallery.title  %> </p> 
-                                          
-                                  <p class="card-text card-caption-edit text-justify">  <%=  imagegallery.caption  %>  </p>
-                                
-                                 
+                                  <p class="card-text card-text-edit"> <%=   imagegallery.title  %> </p>                                           
+                                  <p class="card-text card-caption-edit text-justify">  <%=  imagegallery.caption  %>  </p>        
                                 </div>
                                         
                         </div>
@@ -58,4 +55,4 @@
    
 <div class="m-5">
    <%= paginate @imagegalleries %>
-  </div>
+</div>

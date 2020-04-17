@@ -2,12 +2,15 @@
 
 <div class="conatiner">
     <div class="row justify-content-center">
-    <div class="d-flex flex-column mt-2">
-    <h1>Editing ImageGallery</h1>
-
-    <%= render 'form', imagegallery: @imagegallery %>
-      <p class="d-flex justify-content-around mt-3">   <%= link_to 'Show', @imagegallery %> 
-         <%= link_to 'Back', imagegalleries_path %>  </p>
+    <div class="d-flex flex-column mt-2 border-secondary p-4 bg-info">
+    <h1 class="d-flex justify-content-center mb-4 bg-light rounded-pill px-5 py-2 text-info mx-4">Editing ImageGallery</h1>
+<div>
+     <p>   <%= render 'form', imagegallery: @imagegallery %> </p>
+      
+     <p class="d-flex justify-content-around">   <%= link_to 'Show', @imagegallery ,:class=>"btn btn-dark"%> 
+       <%= link_to 'Back', imagegalleries_path ,:class=>"btn btn-dark" %> </p>
+     
+</div>   
     </div>
     </div>
 </div>
