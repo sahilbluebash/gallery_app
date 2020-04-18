@@ -4,6 +4,7 @@ Rails.application.configure do
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+  
   config.cache_classes = false
 
   # Do not eager load code on boot.
@@ -69,7 +70,8 @@ Rails.application.configure do
   domain: "gmail.com",
   authentication: "plain",
   enable_starttls_auto: true,
-  user_name: "apna email id likhio isme bluebash wali",
-  password: "password gmail ka likhio"
+  user_name: "sahilsaini1680@gmail.com",
+  password: "sahil@8055"
   }
+
 end
