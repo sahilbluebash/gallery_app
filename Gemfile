@@ -62,7 +62,7 @@ gem 'jquery-rails'
 
 gem 'hirb'
 
-gem 'kaminari'
+gem 'kaminari' 
 
 gem 'acts-as-taggable-on'
 

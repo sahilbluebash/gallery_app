@@ -80,11 +80,12 @@ class ImagegalleriesController < ApplicationController
 
 
   # All Images shown here
-  def showallimages
+  def showallimages    
     if user_signed_in?            
       @imagegalleries = current_user.imagegalleries.page( params[:page])
      
       redirect_to "/imagegalleries"
+  
     else
     @imagegalleries = Imagegallery.all.page( params[:page])
  
@@ -94,7 +95,7 @@ class ImagegalleriesController < ApplicationController
 
   def tagged
     if params[:tag].present?
-      @imagegalleries= Imagegallery.tagged_with(params[:tag])
+      @imagegalleries= Imagegallery.tagged_with(params[:tag]).page( params[:page])
       render template: "imagegalleries/showrelatedtags"
    else
       @imagegalleries = Imagegallery.all

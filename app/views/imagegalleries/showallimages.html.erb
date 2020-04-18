@@ -5,6 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <div class="container-fluid p-0">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
@@ -32,20 +33,38 @@
               </nav>       
      </div>
   
-
+    <div class="container">
+        <h2 class=" my-5 d-flex  text-justify text-center bg-gradient-warning text-dark">
+        GalleryApp is a favorite among gallery management applications and this is a great example of simple, persuasive gallery.</h2>
+    </div>
  
-        <div class="container-fluid  ">
-           <div class="d-flex flex-wrap flex-row ">  
+        <div class="container  ">
+           <div class="d-flex flex-wrap flex-row justify-content-start ">  
           
                   <% @imagegalleries.each do |imagegallery| %>
 
-                        <div class="card mt-4 mx-4" style="width:310px;">      
+                        <div class="card mt-4 mx-2" style="width:16rem;">      
                           <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
                                 <div class="card-body ">
                                   <p class="card-text card-text-edit"> <%=   imagegallery.title  %> </p>                                           
-                                  <p class="card-text card-caption-edit text-justify">  <%=  imagegallery.caption  %>  </p>        
+                                  <p class="card-text card-caption-edit text-justify"> <%=  imagegallery.caption  %>  </p>                                   
+                                  <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>          
                                 </div>
-                                        
+                            <% if current_user && current_user.admin %>
+                               <div>
+                                  <p class="card-text card-tag-edit "> 
+                                  <p> Tags :<% imagegallery.tag_list.each do |tag| %>  <%= link_to tag, tag_path(tag: tag) %> <% end %></p>                              
+                                  </p>                 
+                                  <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
+                                  <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
+                               </div>
+                              <div class="card-body d-flex  pt-2 ">
+                                  
+                                <a  class="card-link "><%= link_to 'Show', imagegallery %></a>
+                                <a  class="card-link flex-fill"><%= link_to 'Edit', edit_imagegallery_path(imagegallery) %></a>
+                                <a  class="card-link flex-fill"><%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } %></a>
+                              </div> 
+                            <% end %>          
                         </div>
 
                   <% end %>
@@ -53,6 +72,20 @@
         
         </div>
    
-<div class="m-5">
+<div class="m-5 d-flex justify-content-center">
    <%= paginate @imagegalleries %>
 </div>
+
+<footer class="footer1 bg-dark">
+      
+          <ul class="social-menu2 mt-4">
+            <li ><a href="https://www.facebook.com/colorlib"><i class="fa fa-facebook"  aria-hidden="true" ></i></a></li>
+            <li ><a href="https://twitter.com/colorlib"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            <li ><a href="https://www.youtube.com/channel/UCOaovjLNXdIch2vLFsw_uew"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+            <li ><a href="https://plus.google.com/100289203607749737039"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li ><a href="https://instagram.com"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+            <li ><a href="https://github.com/puikinsh/"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+          </ul>
+             
+          <p class="text-white">Design By Sahil</p>
+ </footer>

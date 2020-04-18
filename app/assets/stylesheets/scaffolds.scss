@@ -96,6 +96,13 @@ label {
 .onHoverCardImg:hover{
   opacity: 0.8;
 }
+
+.card-published-edit{
+  color: #6f00ff;
+}
+.card-published-edit:hover{
+  color: #9dff00;
+}
 /* 
 of form */
 .text-box-size-new{
@@ -143,4 +150,41 @@ margin-bottom: 0px;
 
 .sidenav a:hover {
   color: #f1f1f1;
+}
+
+#footer
+
+.social-menu2{
+
+  border: 0 !important;
+  list-style: none;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.social-menu2 li{
+  letter-spacing: 1rem;
+  font-size: 20px;
+  display: inline-block;
+
+}
+
+.social-menu2 li a{
+  color: #ffffff;
+}
+
+.social-menu2 li a:hover {
+  color: #fffb00;
+}
+.footer1{
+   
+  background-color: #ddd;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom:0px;
+}
+.footer1 p{
+ padding-bottom: 2rem;
 }
