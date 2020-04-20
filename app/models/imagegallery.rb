@@ -5,6 +5,7 @@ class Imagegallery < ApplicationRecord
     validate :acceptable_image
     validates :title, presence: true
     validates :caption, presence: true
+    validates :tag_list, presence: true
     acts_as_taggable #tags
     paginates_per 8
 

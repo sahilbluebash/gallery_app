@@ -11,33 +11,52 @@
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
-                </button>
-                  <a class="navbar-brand disabled" >IMAGE GALLERY</a>
+                </button>            
+             
+             <% if current_user %>     
+             <% else %>
+                <a class="navbar-brand disabled" >IMAGE GALLERY</a>
+            <% end %>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                   <ul class=" navbar-nav mr-auto mt-2 mt-lg-0  ">
                     <li class="nav-link active">
-                        <a > WELCOME </a>
+                        <a > WELCOME </a>  <% if current_user %> <a class="ml-2"> <%= current_user.email%>  </a> <% else %>   <% end %>
                    </li>
                                    
                   </ul>    
-                  <ul class="nav navbar-nav navbar-right">              
+              
+                  <ul class="nav navbar-nav navbar-right">       
+          <% if current_user %>   
+                    <li >
+                       <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-dark' %></a>
+                    </li>              
+                    <li >                                      
+                         <a class="mx-1"> <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-dark', :method => :get %> </a>
+                    </li>  
+           <% else %>
                     <li>                                      
                          <a class="mx-2"> <%= link_to "Log in", new_user_session_path, :class => 'btn btn-warning'%>  </a>
                     </li>
                     <li>
                          <a class="mx-2">  <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-warning'%>  </a>
                     <li>
-                    
+            <% end %>
                   </ul> 
                 </div>
               </nav>       
      </div>
   
-    <div class="container">
-        <h2 class=" my-5 d-flex  text-justify text-center bg-gradient-warning text-dark">
-        GalleryApp is a favorite among gallery management applications and this is a great example of simple, persuasive gallery.</h2>
-    </div>
- 
+  <% if current_user %>     
+  <% else %>
+      <div class="container">
+          <h2 class=" my-5 d-flex  text-justify text-center bg-gradient-warning text-dark">
+          GalleryApp is a favorite among gallery management applications and this is a great example of simple, persuasive gallery.</h2>
+      </div>
+   <% end %>
+
+      
+
+
         <div class="container  ">
            <div class="d-flex flex-wrap flex-row justify-content-start ">  
           
@@ -49,17 +68,18 @@
                                   <p class="card-text card-text-edit"> <%=   imagegallery.title  %> </p>                                           
                                   <p class="card-text card-caption-edit text-justify"> <%=  imagegallery.caption  %>  </p>                                   
                                   <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>          
-                                </div>
-                            <% if current_user && current_user.admin %>
-                               <div>
+                               
+                            <% if current_user %>                               
                                   <p class="card-text card-tag-edit "> 
                                   <p> Tags :<% imagegallery.tag_list.each do |tag| %>  <%= link_to tag, tag_path(tag: tag) %> <% end %></p>                              
                                   </p>                 
                                   <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
                                   <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
-                               </div>
-                              <div class="card-body d-flex  pt-2 ">
-                                  
+                            <% end %> 
+                            </div>
+
+                             <% if current_user %>
+                              <div class="card-body d-flex  pt-2 ">                                  
                                 <a  class="card-link "><%= link_to 'Show', imagegallery %></a>
                                 <a  class="card-link flex-fill"><%= link_to 'Edit', edit_imagegallery_path(imagegallery) %></a>
                                 <a  class="card-link flex-fill"><%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } %></a>
@@ -76,7 +96,14 @@
    <%= paginate @imagegalleries %>
 </div>
 
-<footer class="footer1 bg-dark">
+
+
+
+
+
+  <% if current_user %>     
+  <% else %>
+      <footer class="footer1 bg-dark">
       
           <ul class="social-menu2 mt-4">
             <li ><a href="https://www.facebook.com/colorlib"><i class="fa fa-facebook"  aria-hidden="true" ></i></a></li>
@@ -88,4 +115,5 @@
           </ul>
              
           <p class="text-white">Design By Sahil</p>
- </footer>
+  </footer>
+<% end %>

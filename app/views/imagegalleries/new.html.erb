@@ -15,7 +15,12 @@
         <div>
           <p>  <%= render 'form', imagegallery: @imagegallery %>  </p>
 
-           <p>  <%= link_to 'Back', imagegalleries_path, :class => 'btn btn-dark' %> </p>
+           <p> <% if current_user && current_user.admin %> 
+                        <%= link_to 'Back', showallimages_path, :class => 'btn btn-dark' %>
+                <% else %>
+                      <%= link_to 'Back', imagegalleries_path, :class => 'btn btn-dark' %> 
+                <% end %>
+          </p>
         <div>
     </div>
     </div>

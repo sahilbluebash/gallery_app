@@ -4,12 +4,18 @@ class ImagegalleriesController < ApplicationController
   # GET /imagegalleries
   # GET /imagegalleries.json
  
-  def index
+  # def index
    
-      @imagegalleries = current_user.imagegalleries.page( params[:page])
+  #     @imagegalleries = current_user.imagegalleries.page( params[:page])
   
+  # end
+  def index
+    if current_user && current_user.admin?
+    @imagegalleries = Imagegallery.all.page(params[:page])
+    elsif current_user
+    @imagegalleries = current_user.imagegalleries.page(params[:page])
+    end
   end
-
   # GET /imagegalleries/1
   # GET /imagegalleries/1.json
   def show
@@ -93,23 +99,35 @@ class ImagegalleriesController < ApplicationController
   #       render template: "imagegalleries/showallimages"
   #   end
   # end
-def showallimages
-  if  current_user && current_user.admin?
-    @imagegalleries = Imagegallery.all.page( params[:page])
+# def showallimages
+#   if  current_user && current_user.admin?
+#     @imagegalleries = Imagegallery.all.page( params[:page])
     
-        render template: "imagegalleries/showadminpage"
-  elsif user_signed_in?
-    @imagegalleries = current_user.imagegalleries.page( params[:page])
+#         render template: "imagegalleries/showadminpage"
+#   elsif user_signed_in?
+#     @imagegalleries = current_user.imagegalleries.page( params[:page])
       
-        redirect_to "/imagegalleries"
-  else
-    @imagegalleries = Imagegallery.all.page( params[:page])
+#         redirect_to "/imagegalleries"
+#   else
+#     @imagegalleries = Imagegallery.all.page( params[:page])
     
-    render template: "imagegalleries/showallimages"
+#     render template: "imagegalleries/showallimages"
+#   end
+# end
+
+def showallimages
+
+  if current_user && current_user.admin?
+    @imagegalleries = Imagegallery.all.page(params[:page])
+  elsif current_user
+    @imagegalleries = current_user.imagegalleries.page(params[:page])
+    redirect_to "/imagegalleries"
+  else
+    @imagegalleries = Imagegallery.all.page(params[:page])
   end
+  
+ 
 end
-
-
 
 
   def tagged
