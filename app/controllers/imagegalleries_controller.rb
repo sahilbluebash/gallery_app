@@ -80,18 +80,37 @@ class ImagegalleriesController < ApplicationController
 
 
   # All Images shown here
-  def showallimages    
-    if user_signed_in?            
-      @imagegalleries = current_user.imagegalleries.page( params[:page])
-     
-      redirect_to "/imagegalleries"
+  # def showallimages    
+  #   if user_signed_in?  
+              
+  #       @imagegalleries = current_user.imagegalleries.page( params[:page])
+      
+  #       redirect_to "/imagegalleries"
   
-    else
+  #   else
+  #       @imagegalleries = Imagegallery.all.page( params[:page])
+    
+  #       render template: "imagegalleries/showallimages"
+  #   end
+  # end
+def showallimages
+  if  current_user && current_user.admin?
     @imagegalleries = Imagegallery.all.page( params[:page])
- 
+    
+        render template: "imagegalleries/showadminpage"
+  elsif user_signed_in?
+    @imagegalleries = current_user.imagegalleries.page( params[:page])
+      
+        redirect_to "/imagegalleries"
+  else
+    @imagegalleries = Imagegallery.all.page( params[:page])
+    
     render template: "imagegalleries/showallimages"
-    end
   end
+end
+
+
+
 
   def tagged
     if params[:tag].present?

@@ -33,11 +33,9 @@
                 </div>
               </nav>       
      </div>
-  
-
- <div class="container">
-    
-        <div class="d-flex flex-wrap flex-row  justify-content-start ">  
+ 
+        <div class="container  ">
+           <div class="d-flex flex-wrap flex-row  justify-content-start ">  
               <% @imagegalleries.each do |imagegallery| %>
               <div class="card mt-4 mx-2" style="width:16rem;">      
                 <%=  image_tag(imagegallery.image , class:"onHoverCardImg card-img-top img-fluid " )  %>  
@@ -49,6 +47,7 @@
                           </p>                 
                           <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
                           <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
+                           <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>  
                       </div>
                       <div class="card-body d-flex  pt-2 ">
                           
@@ -61,16 +60,14 @@
           </div> 
 
     </div>
-</div>
-
+        
+        </div>
+   
 <div class="m-5 d-flex justify-content-center">
    <%= paginate @imagegalleries %>
 </div>
 
- <%# # if user_signed_in?            
-#   @imagegalleries = current_user.imagegalleries.page( params[:page])     
-#   redirect_to "/imagegalleries"  
-# else
-#   @imagegalleries = Imagegallery.all.page( params[:page])  
-#   render template: "imagegalleries/showallimages"
-# end %>
+      
+   
+         
+                             
