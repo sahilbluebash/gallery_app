@@ -125,7 +125,6 @@ def showallimages
   else
     @imagegalleries = Imagegallery.all.page(params[:page])
   end
-  
  
 end
 

@@ -1,4 +1,28 @@
-
+   <div class="container-fluid p-0">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>      
+             
+         <a class="navbar-brand disabled" >IMAGE GALLERY</a>
+                  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                  <ul class=" navbar-nav mr-auto mt-2 mt-lg-0  ">
+                    <li>                        
+                        <a> <%= link_to 'HOME', showallimages_path, :class => 'btn btn-info ' %></a>
+                   </li>                                   
+                  </ul>    
+              
+                  <ul class="nav navbar-nav navbar-right">      
+                     <li>                                      
+                         <a class="mx-2"> <%= link_to "Log in", new_user_session_path, :class => 'btn btn-warning'%>  </a>
+                    </li>     
+                    <li>
+                         <a class="mx-2">  <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-warning'%>  </a>
+                    </li>           
+                  </ul> 
+                </div>
+              </nav>       
+     </div>
 <div class="container-fliud mx-5">
     <div class="row justify-content-center mx-5">
        <div class="d-flex flex-column my-4 border border-secondary p-3 bg-info mx-1 ">
@@ -12,12 +36,11 @@
                     <p class="mt-1" >  <%= f.email_field :email, autofocus: true, autocomplete: "email" ,:class=>'setwidthofForgetInputElement' %> </p>
               </div>
 
-              <div class="actions mb-5">
+              <div class="actions my-4">
                 <%= f.submit "Send me reset password instructions" , :class => 'btn btn-success' %>
               </div>
             <% end %>
 
-            <%= render "devise/shared/links" %>
 
       </div>
     </div>

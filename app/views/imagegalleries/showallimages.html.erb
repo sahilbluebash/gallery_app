@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                   <ul class=" navbar-nav mr-auto mt-2 mt-lg-0  ">
                     <li class="nav-link active">
-                        <a > WELCOME </a>  <% if current_user %> <a class="ml-2"> <%= current_user.email%>  </a> <% else %>   <% end %>
+                        <a > WELCOME </a>  <% if current_user %> <a class="ml-2"> <%= current_user.email.split('@')[0] %>  </a> <% else %>   <% end %>
                    </li>
                                    
                   </ul>    
@@ -28,10 +28,10 @@
                   <ul class="nav navbar-nav navbar-right">       
           <% if current_user %>   
                     <li >
-                       <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-dark' %></a>
+                       <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-primary' %></a>
                     </li>              
                     <li >                                      
-                         <a class="mx-1"> <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-dark', :method => :get %> </a>
+                         <a class="mx-1"> <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-danger', :method => :get %> </a>
                     </li>  
            <% else %>
                     <li>                                      

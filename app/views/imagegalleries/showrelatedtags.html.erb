@@ -1,3 +1,10 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1 ,shrink-t0-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+
 <div class="container-fluid p-0">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,20 +13,20 @@
                   <a class="navbar-brand disabled" >IMAGE GALLERY</a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                   <ul class=" navbar-nav mr-auto mt-2 mt-lg-0  ">
-                    <li class="nav-link active">
+                    <li >
                       <% if current_user && current_user.admin %> 
-                        <%= link_to 'HOME', showallimages_path, :class => 'btn btn-dark' %>
+                        <%= link_to 'HOME', showallimages_path, :class => 'btn btn-info' %>
                       <% else %>
-                            <%= link_to 'HOME', imagegalleries_path, :class => 'btn btn-dark' %> 
+                            <%= link_to 'HOME', imagegalleries_path, :class => 'btn btn-info' %> 
                       <% end %>              
                     </li>                     
                   </ul>    
                   <ul class="nav navbar-nav navbar-right ">   
                      <li class="nav-item">
-                       <p class="text-primary welcomeCurrentUser">Welcome <%= current_user.email %></p>
+                       <p class="text-primary welcomeCurrentUser text-white ">Welcome <%= current_user.email.split('@')[0] %></p>
                     </li>
-                    <li class="nav-link ">
-                     <a class="px-3"> <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-dark', :method => :get %></a>
+                    <li >
+                     <a class="px-3"> <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-danger', :method => :get %></a>
                     </li>
                   </ul> 
                 </div>
