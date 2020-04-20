@@ -22,8 +22,14 @@
 
           <p class="d-flex justify-content-around">
             <%= link_to 'Edit', edit_imagegallery_path(@imagegallery) %>           
-           
-            <%= link_to 'Back', imagegalleries_path %>
+
+              <% if current_user && current_user.admin %> 
+                        <%= link_to 'Back', showallimages_path, :class => 'btn btn-dark' %>
+                      <% else %>
+                            <%= link_to 'Back', imagegalleries_path, :class => 'btn btn-dark' %> 
+             <% end %>
+
+
           </p>
 </div>
 </div>
