@@ -43,7 +43,7 @@
                           <p class="card-text card-text-edit mt-2">Title : <%=   imagegallery.title  %> </p>                           
                           <p class="card-text card-caption-edit text-justify "> Caption : <%=  imagegallery.caption  %>  </p>        
                           <p class="card-text card-tag-edit "> 
-                                  <p> Tags :<% imagegallery.tag_list.each do |tag| %>  <%= link_to tag, tag_path(tag: tag) %> <% end %></p>                              
+                                   <p>Tags: <%= imagegallery.tag_list %></p>                                 
                           </p>                 
                           <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
                           <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
