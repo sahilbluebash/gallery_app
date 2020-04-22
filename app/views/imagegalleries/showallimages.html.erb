@@ -36,7 +36,7 @@
                     </li>  
                     <li >    
                        <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %>
-                           <a class="mr-2 "><%= text_field_tag :tag ,params[:tag] , class: 'form-control', autofocus: true,placeholder: "Search tag"%>  </a>
+                           <a class="mr-2 "><%= text_field_tag :tag ,params[:tag] , class: 'form-control', autofocus: true,placeholder: "Search tag", :required => 'required'%>  </a>
                           <a>  <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-success'%>  </a>
                         <% end %>  
                     </li>             

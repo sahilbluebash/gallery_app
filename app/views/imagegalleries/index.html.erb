@@ -28,19 +28,20 @@
                     </li>                     
                     <li class="mr-3" >
                        <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-primary' %></a>
-                    </li>             
-                  </ul>    
-                  <ul class="nav navbar-nav navbar-right ">   
-                     <li class="nav-item pr-3">
+                    </li> 
+                    <li class="nav-item pr-3">
                        <p class="text-primary welcomeCurrentUser">Welcome <%= current_user.email.split('@')[0]%></p>
-                    </li>
+                    </li>            
+                  </ul>    
+                  <ul class="nav navbar-nav navbar-right ">                      
                   
                     <li>
-                     <a > <%= link_to "Sign Out ", destroy_user_session_path, :class => 'btn btn-danger', :method => :get %></a>
-                    </li>                   
+                     <a > <%= link_to 'Sign Out' ,destroy_user_session_path, :class => 'btn btn-danger', :method => :get %></a>
+                    </li>     
+
                      <li class="mx-2 ">    
                        <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %>
-                           <a class="mr-2 "><%= text_field_tag :tag ,params[:tag] , class: 'form-control', autofocus: true,placeholder: "Search tag"%>  </a>
+                           <a class="mr-2 "><%= text_field_tag :tag ,params[:tag] , class: 'form-control', autofocus: true,placeholder: "Search tag", :required => 'required'%>  </a>
                           <a>  <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-success'%>  </a>
                         <% end %>  
                     </li> 
