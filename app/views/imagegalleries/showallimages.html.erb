@@ -27,19 +27,13 @@
               
                   <ul class="nav navbar-nav navbar-right">    
                   
-          <% if current_user %>   
+          <% if current_user %>                      
                     <li >
                        <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-primary' %></a>
                     </li>   
                      <li class="mx-3">                                      
                          <a class="mx-1"> <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-danger', :method => :get %> </a>
-                    </li>  
-                    <li >    
-                       <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %>
-                           <a class="mr-2 "><%= text_field_tag :tag ,params[:tag] , class: 'form-control', autofocus: true,placeholder: "Search tag", :required => 'required'%>  </a>
-                          <a>  <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-success'%>  </a>
-                        <% end %>  
-                    </li>             
+                    </li>            
                    
            <% else %>
                     <li>                                      
@@ -65,6 +59,86 @@
       
 
 
+
+
+
+<% if current_user %>     
+
+  <div class="container-fluid">
+      <div class="row">
+          <div class=" col-sm-12 col-md-2">
+          </div>
+          <div class=" col-sm-12 col-md-8 ">
+           <div class="d-flex flex-wrap flex-row justify-content-start ">  
+          
+                  <% @imagegalleries.each do |imagegallery| %>
+
+                        <div class="card mt-4 mx-2" style="width:16rem;">      
+                          <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
+                                <div class="card-body ">
+                                  <p class="card-text card-text-edit"> <%=   imagegallery.title  %> </p>                                           
+                                  <p class="card-text card-caption-edit text-justify"> <%=  imagegallery.caption  %>  </p>                                   
+                                  <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>          
+                               
+                                                     
+                                  <p class="card-text card-tag-edit "> 
+                                  <p>Tags: <%= imagegallery.tag_list %></p>                            
+                                  </p>                 
+                                  <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
+                                  <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
+                           
+                            </div>
+
+                         
+                              <div class="card-body d-flex  pt-2 ">                                  
+                                <a  class="card-link "><%= link_to 'Show', imagegallery %></a>
+                                <a  class="card-link flex-fill"><%= link_to 'Edit', edit_imagegallery_path(imagegallery) %></a>
+                                <a  class="card-link flex-fill"><%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } %></a>
+                              </div> 
+                           
+                        </div>
+
+                  <% end %>
+          </div> 
+         </div> 
+            <div class="col-sm-12 col-md-2  "> 
+          
+                      <h3 class="text-primary"> Search </h3>
+                      <div >
+                       
+                                <%= search_form_for @q do |f| %>
+                                   <h5 class="my-2"> <%= f.label :title  %> </h5>
+                                    <%= f.text_field  :title_cont, class: 'form-control', autofocus: true,placeholder: "Search title", :required => 'required' %>
+                                    <%= f.submit class: 'btn btn-primary mb-4 mt-2' %>
+                                <% end %>
+                      <div>
+                        <div >
+                                  <%= search_form_for @q do |f| %>
+                                    <h5 class="mt-2"><%= f.label :caption %></h5>
+                                    <%= f.text_field  :caption_cont, class: 'form-control', autofocus: true,placeholder: "Search caption", :required => 'required' %>
+                                    <%= f.submit class: 'btn btn-primary mb-4 mt-2' %>
+                                <% end %>
+                        </div>  
+                      
+                        <div  > <h5 class="my-2">Tag</h5>
+                                  <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %> 
+                                     <%= text_field_tag :tag ,params[:tag] , class: 'form-control', autofocus: true,placeholder: "Search tag", :required => 'required'%> 
+                                     <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-primary mb-4 mt-2'%>  
+                                  <% end %>  
+                        </div>        
+                            
+             </div>
+      </div>
+</div>
+
+ 
+ 
+ 
+ 
+  <% else %>
+
+
+
         <div class="container  ">
            <div class="d-flex flex-wrap flex-row justify-content-start ">  
           
@@ -77,29 +151,18 @@
                                   <p class="card-text card-caption-edit text-justify"> <%=  imagegallery.caption  %>  </p>                                   
                                   <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>          
                                
-                            <% if current_user %>                               
-                                  <p class="card-text card-tag-edit "> 
-                                  <p>Tags: <%= imagegallery.tag_list %></p>                            
-                                  </p>                 
-                                  <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
-                                  <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
-                            <% end %> 
-                            </div>
-
-                             <% if current_user %>
-                              <div class="card-body d-flex  pt-2 ">                                  
-                                <a  class="card-link "><%= link_to 'Show', imagegallery %></a>
-                                <a  class="card-link flex-fill"><%= link_to 'Edit', edit_imagegallery_path(imagegallery) %></a>
-                                <a  class="card-link flex-fill"><%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } %></a>
-                              </div> 
-                            <% end       %>
+                                 </div>
+                         
                         </div>
 
                   <% end %>
           </div>  
         
         </div>
-   
+
+<% end %>
+
+
 <div class="m-5 d-flex justify-content-center">
    <%= paginate @imagegalleries %>
 </div>
@@ -111,7 +174,7 @@
 
   <% if current_user %>     
   <% else %>
-      <footer class="footer1 bg-dark fixed-bottom">
+      <footer class="footer1 bg-dark sticky-bottom">
       
           <ul class="social-menu2 mt-4">
             <li ><a href="https://www.facebook.com/colorlib"><i class="fa fa-facebook"  aria-hidden="true" ></i></a></li>

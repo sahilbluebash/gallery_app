@@ -9,12 +9,19 @@ class ImagegalleriesController < ApplicationController
   #     @imagegalleries = current_user.imagegalleries.page( params[:page])
   
   # end
+
   def index
-    if current_user && current_user.admin?
-    @imagegalleries = Imagegallery.all.page(params[:page])
+    @q = Imagegallery.ransack(params[:q])  
+    if current_user && current_user.admin?     
+      @imagegalleries = Imagegallery.all.page(params[:page])
+      @imagegalleries = @q.result.page(params[:page])
     elsif current_user
-    @imagegalleries = current_user.imagegalleries.page(params[:page])
-    end
+      @imagegalleries = current_user.imagegalleries.page(params[:page])       
+      @q  = current_user.imagegalleries.ransack(params[:q])       
+      @imagegalleries = @q.result.page(params[:page])
+    end    
+    
+    
   end
   # GET /imagegalleries/1
   # GET /imagegalleries/1.json
@@ -116,28 +123,38 @@ class ImagegalleriesController < ApplicationController
 # end
 
 def showallimages
+ 
 
   if current_user && current_user.admin?
     @imagegalleries = Imagegallery.all.page(params[:page])
+    @q = Imagegallery.ransack(params[:q])  
+    @imagegalleries = @q.result.page(params[:page])
   elsif current_user
     @imagegalleries = current_user.imagegalleries.page(params[:page])
     redirect_to "/imagegalleries"
+    @q  = current_user.imagegalleries.ransack(params[:q])       
+    @imagegalleries = @q.result.page(params[:page])
   else
     @imagegalleries = Imagegallery.all.page(params[:page])
+    @q = Imagegallery.ransack(params[:q])  
+    @imagegalleries = @q.result.page(params[:page])
   end
- 
+  
 end
-
 
   def tagged
     if params[:tag].present?
-      @imagegalleries= Imagegallery.tagged_with(params[:tag]).page( params[:page])
-      render template: "imagegalleries/showrelatedtags"
+      if current_user && current_user.admin?
+        @imagegalleries=Imagegallery.tagged_with(params[:tag]).page( params[:page])
+        render template: "imagegalleries/showrelatedtags"
+      elsif current_user
+        @imagegalleries=current_user.imagegalleries.tagged_with(params[:tag]).page( params[:page])
+        render template: "imagegalleries/showrelatedtags"        
+      end
    else
       @imagegalleries = Imagegallery.all
     end
   end
-
  
   
 
@@ -151,7 +168,5 @@ end
     def imagegallery_params
       params.require(:imagegallery).permit(:title, :caption, :image , :tag_list)
     end
-
-    
 
 end

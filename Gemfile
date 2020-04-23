@@ -70,3 +70,4 @@ gem 'acts-as-taggable-on'
 
 gem 'postgresql'
 
+gem 'ransack'
