@@ -15,7 +15,7 @@
                   <ul class=" navbar-nav mr-auto mt-2 mt-lg-0  ">
                     <li >
                       <% if current_user && current_user.admin %> 
-                        <%= link_to 'HOME', showallimages_path, :class => 'btn btn-info' %>
+                        <%= link_to 'HOME', root_path, :class => 'btn btn-info' %>
                       <% else %>
                             <%= link_to 'HOME', imagegalleries_path, :class => 'btn btn-info' %> 
                       <% end %>              
@@ -41,7 +41,10 @@
                 <%=  image_tag(imagegallery.image , class:"onHoverCardImg card-img-top img-fluid " )  %>  
                       <div class="card-body py-0">
                           <p class="card-text card-text-edit mt-2">Title : <%=   imagegallery.title  %> </p>                           
-                          <p class="card-text card-caption-edit text-justify "> Caption : <%=  imagegallery.caption  %>  </p>        
+                          <p class="card-text card-caption-edit text-justify "> Caption : <%=  imagegallery.caption  %>  </p>  
+                          <% if current_user && current_user.admin %> 
+                          <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>     
+                           <% end %>
                           <p class="card-text card-tag-edit "> 
                                    <p>Tags: <%= imagegallery.tag_list %></p>                                 
                           </p>                 

@@ -10,7 +10,7 @@
      <p class="d-flex justify-content-around">   <%= link_to 'Show', @imagegallery ,:class=>"btn btn-dark"%> 
       
         <% if current_user && current_user.admin %> 
-                        <%= link_to 'Back', showallimages_path, :class => 'btn btn-dark' %>
+                        <%= link_to 'Back', root_path, :class => 'btn btn-dark' %>
                       <% else %>
                             <%= link_to 'Back', imagegalleries_path, :class => 'btn btn-dark' %> 
                       <% end %>
