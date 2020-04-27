@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                   <ul class=" navbar-nav mr-auto mt-2 mt-lg-0  ">
                     <li class="nav-link active">
-                        <a > WELCOME </a>  <% if current_user %> <a class="ml-2"> <%= current_user.email.split('@')[0] %>  </a> <% else %>   <% end %>
+                        <a > WELCOME :</a>  <% if current_user %> <a class="ml-2"> <%= current_user.email.split('@')[0] %>  </a> <% else %>   <% end %>
                    </li>
                                    
                   </ul>    
@@ -76,16 +76,16 @@
                         <div class="card mt-4 mx-2" style="width:16rem;">      
                           <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
                                 <div class="card-body ">
-                                  <p class="card-text card-text-edit"> <%=   imagegallery.title  %> </p>                                           
-                                  <p class="card-text card-caption-edit text-justify"> <%=  imagegallery.caption  %>  </p>                                   
-                                  <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>          
+                                  <p class="card-text card-text-edit"><b>Title : </b> <%=   imagegallery.title  %> </p>                                           
+                                  <p class="card-text card-caption-edit text-justify"><b>Caption : </b><%=  imagegallery.caption  %>  </p>                                   
+                                  <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>          
                                
                                                      
                                   <p class="card-text card-tag-edit "> 
-                                  <p>Tags: <%= imagegallery.tag_list %></p>                            
+                                  <p><b>Tags : </b><%= imagegallery.tag_list %></p>                            
                                   </p>                 
-                                  <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small>Created on  :<%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
-                                  <p class="card-text d-flex flex-nowrap mb-1"><small>Updated on  :<%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
+                                  <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small><b>Created on  : </b><%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
+                                  <p class="card-text d-flex flex-nowrap mb-1"><small><b>Updated on  : </b><%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
                            
                             </div>
 
@@ -143,9 +143,9 @@
                         <div class="card mt-4 mx-2" style="width:16rem;">      
                           <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
                                 <div class="card-body ">
-                                  <p class="card-text card-text-edit"> <%=   imagegallery.title  %> </p>                                           
-                                  <p class="card-text card-caption-edit text-justify"> <%=  imagegallery.caption  %>  </p>                                   
-                                  <p class="card-text card-published-edit"><small>Published By : <%=   imagegallery.user.email.split('@')[0] %> </small></p>          
+                                  <p class="card-text card-text-edit"> <b>Title : </b><%=   imagegallery.title  %> </p>                                           
+                                  <p class="card-text card-caption-edit text-justify"> <b> Caption : </b><%=  imagegallery.caption  %>  </p>                                   
+                                  <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>          
                                
                                  </div>
                          
