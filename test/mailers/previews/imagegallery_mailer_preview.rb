@@ -11,5 +11,10 @@ class ImagegalleryMailerPreview < ActionMailer::Preview
     imagegallery= Imagegallery.last
     ImagegalleryMailer.destroy_album(imagegallery)
   end
+
+  def edit_album
+    imagegallery= Imagegallery.last
+    ImagegalleryMailer.edit_album(imagegallery)
+  end
 end
    

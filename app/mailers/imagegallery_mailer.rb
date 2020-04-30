@@ -13,4 +13,8 @@ class ImagegalleryMailer < ApplicationMailer
     mail to: imagegallery.user.email, subject: 'POST DELETED'
   end
 
+  def edit_imagegallery(imagegallery)      
+    mail to: imagegallery.user.email, subject: 'POST EDITED'
+  end
+
 end

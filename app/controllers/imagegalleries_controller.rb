@@ -60,6 +60,10 @@ class ImagegalleriesController < ApplicationController
   def update
     respond_to do |format|
       if @imagegallery.update(imagegallery_params)
+          if current_user && current_user.admin?
+            ImagegalleryMailer.edit_imagegallery(@imagegallery).deliver_now
+          end
+
         format.html { redirect_to @imagegallery, notice: 'Imagegallery was successfully updated.' }
         format.json { render :show, status: :ok, location: @imagegallery }
       else
@@ -84,9 +88,11 @@ class ImagegalleriesController < ApplicationController
     else
       @imagegallery.destroy        
     end
-    
+      
+    if current_user && current_user.admin?
     ImagegalleryMailer.destroy_imagegallery(@imagegallery).deliver_now
-    
+    end
+
     respond_to do |format|
       format.html { redirect_to imagegalleries_url, notice: 'Imagegallery was successfully destroyed.' }
       format.json { head :no_content } 
