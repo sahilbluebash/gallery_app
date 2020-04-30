@@ -6,6 +6,11 @@ class ImagegalleryMailer < ApplicationMailer
   #   en.imagegallery_mailer.new_imagegallery.subject
   #
   def new_imagegallery(imagegallery)      
-    mail to: imagegallery.user.email, subject: 'New Post Added'
+    mail to: imagegallery.user.email, subject: 'POST CREATED'
   end
+
+  def destroy_imagegallery(imagegallery)      
+    mail to: imagegallery.user.email, subject: 'POST DELETED'
+  end
+
 end

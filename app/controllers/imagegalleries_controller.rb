@@ -71,33 +71,22 @@ class ImagegalleriesController < ApplicationController
 
   # DELETE /imagegalleries/1
   # DELETE /imagegalleries/1.json
-  def destroy      
-    if current_user && current_user.admin?      
-        if params[:attachment_id]
-          @imagegallery.files.find_by_id(params[:attachment_id]).purge
-        
-        # handle purge all
-        elsif params[:purge]
-          @imagegallery.files.purge
-          
-        # handle destroy resource
-        else
-          @imagegallery.destroy          
-        end
-    else  
-        if params[:attachment_id]
-          @imagegallery.files.find_by_id(params[:attachment_id]).purge
-        
-        # handle purge all
-        elsif params[:purge]
-          @imagegallery.files.purge
-          
-        # handle destroy resource
-        else
-          @imagegallery.destroy        
-        end
+  def destroy     
+    
+    if params[:attachment_id]
+      @imagegallery.files.find_by_id(params[:attachment_id]).purge
+    
+    # handle purge all
+    elsif params[:purge]
+      @imagegallery.files.purge
+      
+    # handle destroy resource
+    else
+      @imagegallery.destroy        
     end
-
+    
+    ImagegalleryMailer.destroy_imagegallery(@imagegallery).deliver_now
+    
     respond_to do |format|
       format.html { redirect_to imagegalleries_url, notice: 'Imagegallery was successfully destroyed.' }
       format.json { head :no_content } 
