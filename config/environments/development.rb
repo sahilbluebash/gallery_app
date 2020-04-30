@@ -73,7 +73,8 @@ port: 587,
 domain: "gmail.com",
 authentication: "plain",
 enable_starttls_auto: true,
-user_name: "sahilsaini1680@gmail.com",
-password: ""
+user_name: "commonemail638@gmail.com",
+password: "01common01"
 }
+
 end

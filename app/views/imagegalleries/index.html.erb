@@ -82,8 +82,7 @@
               <div class="border p-2 mt-4" >
                       <div>         <h3 class="text-secondary border-bottom"> Search </h3>
                       </div>
-                      <div >
-                       
+                      <div >                       
                                 <%= search_form_for @q do |f| %>
                                    <h5 class="mt-3 mb-2"> <%= f.label :title_or_caption  %> </h5>
                                     <%= f.text_field  :title_or_caption_cont, class: 'form-control',placeholder: "Search title / caption", :required => 'required' %>

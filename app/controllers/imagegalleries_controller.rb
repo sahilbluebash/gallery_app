@@ -11,6 +11,7 @@ class ImagegalleriesController < ApplicationController
   # end
 
   def index
+
     @q = Imagegallery.ransack(params[:q])  
     if current_user && current_user.admin?     
       @imagegalleries = Imagegallery.all.page(params[:page])
@@ -20,7 +21,6 @@ class ImagegalleriesController < ApplicationController
       @q  = current_user.imagegalleries.ransack(params[:q])       
       @imagegalleries = @q.result.page(params[:page])
     end    
-    
     
   end
   # GET /imagegalleries/1
@@ -44,6 +44,8 @@ class ImagegalleriesController < ApplicationController
     @imagegallery.user = current_user
     respond_to do |format|
       if @imagegallery.save
+
+        ImagegalleryMailer.new_imagegallery(@imagegallery).deliver_now
         format.html { redirect_to @imagegallery, notice: 'Imagegallery was successfully created.' }
         format.json { render :show, status: :created, location: @imagegallery }
       else
@@ -69,19 +71,31 @@ class ImagegalleriesController < ApplicationController
 
   # DELETE /imagegalleries/1
   # DELETE /imagegalleries/1.json
-  def destroy  
-
-    if params[:attachment_id]
-      @imagegallery.files.find_by_id(params[:attachment_id]).purge
-    
-    # handle purge all
-    elsif params[:purge]
-      @imagegallery.files.purge
-      
-    # handle destroy resource
-    else
-      @imagegallery.destroy
-      
+  def destroy      
+    if current_user && current_user.admin?      
+        if params[:attachment_id]
+          @imagegallery.files.find_by_id(params[:attachment_id]).purge
+        
+        # handle purge all
+        elsif params[:purge]
+          @imagegallery.files.purge
+          
+        # handle destroy resource
+        else
+          @imagegallery.destroy          
+        end
+    else  
+        if params[:attachment_id]
+          @imagegallery.files.find_by_id(params[:attachment_id]).purge
+        
+        # handle purge all
+        elsif params[:purge]
+          @imagegallery.files.purge
+          
+        # handle destroy resource
+        else
+          @imagegallery.destroy        
+        end
     end
 
     respond_to do |format|
@@ -90,7 +104,6 @@ class ImagegalleriesController < ApplicationController
     end
 
   end
-
 
   # All Images shown here
   # def showallimages    
@@ -151,7 +164,7 @@ end
         @imagegalleries=current_user.imagegalleries.tagged_with(params[:tag]).page( params[:page])
         render template: "imagegalleries/showrelatedtags"        
       end
-   else
+    else
       @imagegalleries = Imagegallery.all
     end
   end
