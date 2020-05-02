@@ -138,7 +138,9 @@ def showallimages
     @q = Imagegallery.ransack(params[:q])  
     @imagegalleries = @q.result.page(params[:page])
   elsif current_user
-    @imagegalleries = current_user.imagegalleries.page(params[:page])
+   # @imagegalleries = current_user.imagegalleries.page(params[:page])
+
+   @imagegalleries = Imagegallery.all.page(params[:page])
     redirect_to "/imagegalleries"
     @q  = current_user.imagegalleries.ransack(params[:q])       
     @imagegalleries = @q.result.page(params[:page])
@@ -150,6 +152,18 @@ def showallimages
   
 end
 
+def showgallery
+  if current_user 
+    @imagegalleries = Imagegallery.all.page(params[:page])
+    @q = Imagegallery.ransack(params[:q])  
+    @imagegalleries = @q.result.page(params[:page])
+
+  else
+    @imagegalleries = Imagegallery.all.page(params[:page])
+    @q = Imagegallery.ransack(params[:q])  
+    @imagegalleries = @q.result.page(params[:page])
+  end
+end
   def tagged
     if params[:tag].present?
       if current_user && current_user.admin?

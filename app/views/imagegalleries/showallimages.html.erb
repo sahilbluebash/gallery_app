@@ -13,7 +13,8 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>            
              
-             <% if current_user %>     
+             <% if current_user && current_user.admin?  && current_user.admin?  %> 
+           
              <% else %>
                 <a class="navbar-brand disabled" >IMAGE GALLERY</a>
             <% end %>
@@ -27,14 +28,13 @@
               
                   <ul class="nav navbar-nav navbar-right">    
                   
-          <% if current_user %>                      
+          <% if current_user && current_user.admin?  %>                      
                     <li class="mr-3">
                        <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-primary my-1' %></a>
                     </li>   
                      <li class="mr-3">                                      
                          <a > <%= link_to "Sign Out", destroy_user_session_path, :class => 'btn btn-danger my-1', :method => :get %> </a>
-                    </li>            
-                   
+                    </li>     
            <% else %> 
                     <li>                                      
                          <a class="mr-2"> <%= link_to "Log in", new_user_session_path, :class => 'btn btn-warning my-1'%>  </a>
@@ -48,7 +48,7 @@
               </nav>       
      </div>
   
-  <% if current_user %>     
+  <% if current_user && current_user.admin?  %>     
   <% else %>
       <div class="container">
           <h2 class=" my-5 d-flex  text-justify text-center bg-gradient-warning text-dark">
@@ -62,7 +62,7 @@
 
 
 
-<% if current_user %>     
+<% if current_user && current_user.admin?  %>     
 
   <div class="container-fluid">
       <div class="row">
@@ -74,7 +74,10 @@
                   <% @imagegalleries.each do |imagegallery| %>
 
                         <div class="card mt-4 mx-2" style="width:16rem;">      
-                          <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
+                     <%#>  <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %> 
+                         <%= link_to imagegallery  do %>
+                            <%= image_tag imagegallery.image , :class => "onHoverCardImg card-img-top img-fluid " %>
+                         <% end %> 
                                 <div class="card-body ">
                                   <p class="card-text card-text-edit"><b>Title : </b> <%=   imagegallery.title  %> </p>                                           
                                   <p class="card-text card-caption-edit text-justify"><b>Caption : </b><%=  imagegallery.caption  %>  </p>                                   
@@ -141,7 +144,8 @@
                   <% @imagegalleries.each do |imagegallery| %>
 
                         <div class="card mt-4 mx-2" style="width:16rem;">      
-                          <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
+                  <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
+                       
                                 <div class="card-body ">
                                   <p class="card-text card-text-edit"> <b>Title : </b><%=   imagegallery.title  %> </p>                                           
                                   <p class="card-text card-caption-edit text-justify"> <b> Caption : </b><%=  imagegallery.caption  %>  </p>                                   
@@ -168,7 +172,7 @@
 
 
 
-  <% if current_user %>     
+  <% if current_user && current_user.admin?  %>     
   <% else %>
       <footer class="footer1 bg-dark sticky-bottom">
       

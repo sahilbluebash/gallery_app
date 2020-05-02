@@ -32,13 +32,7 @@
                        <p class="text-white welcomeCurrentUser">WELCOME : <%= current_user.email.split('@')[0] %></p>
                     </li>            
                   </ul>    
-                  <ul class="nav navbar-nav navbar-right ">  
-                    <li class="mr-3" >
-                       <a > <%= link_to 'UPLOAD', new_imagegallery_path, :class => 'btn btn-primary my-1' %></a>
-                    </li> 
-                     <li class="mr-3" >
-                       <a > <%= link_to 'GALLERY',showgallery_path, :class => 'btn btn-primary my-1' %></a>
-                    </li> 
+                  <ul class="nav navbar-nav navbar-right ">                      
                     <li class="mr-3">
                      <a> <%= link_to 'Sign Out' ,destroy_user_session_path, :class => 'btn btn-danger my-1', :method => :get %></a>
                     </li>                    
@@ -56,49 +50,25 @@
             <div class="  d-flex flex-wrap flex-row  justify-content-start ">  
                   <% @imagegalleries.each do |imagegallery| %>
                   <div class="card mt-4 mx-2" style="width:16rem;">      
-                    <%=  image_tag(imagegallery.image , class:"onHoverCardImg card-img-top img-fluid " )  %>  
+              <%=  image_tag(imagegallery.image , class:"onHoverCardImg card-img-top img-fluid " )    %>
+                    <%# <%= link_to(image_tag(imagegallery.image ), class:"onHoverCardImg card-img-top img-fluid " ) %>
+                     
                           <div class="card-body py-0">
                               <p class="card-text card-text-edit mt-2"><b>Title : </b><%=   imagegallery.title  %> </p>                           
-                              <p class="card-text card-caption-edit text-justify "><b> Caption : </b><%=  imagegallery.caption  %>  </p>        
+                              <p class="card-text card-caption-edit text-justify "><b> Caption : </b><%=  imagegallery.caption  %>  </p>  
+                              <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>          
+                                   
                               <p class="card-text card-tag-edit "> 
                                       <%# <p> Tags :<% imagegallery.tag_list.each do |tag|  <%= link_to tag, tag_path(tag: tag) %> 
                                       <p><b>Tags : </b> <%= imagegallery.tag_list %></p>                            
                               </p>                 
                               <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small><b>Created on  : </b><%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
-                              <p class="card-text d-flex flex-nowrap mb-1"><small><b>Updated on  : </b><%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
-                          </div>
-                          <div class="card-body d-flex  pt-2 ">
-                              
-                            <a  class="card-link "><%= link_to 'Show', imagegallery %></a>
-                            <a  class="card-link flex-fill"><%= link_to 'Edit', edit_imagegallery_path(imagegallery) %></a>
-                            <a  class="card-link flex-fill"><%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } %></a>
-                          </div>               
+                              <p class="card-text d-flex flex-nowrap mb-2"><small><b>Updated on  : </b><%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
+                               </div>            
                   </div>
                   <% end %>
               </div> 
          </div>
-    
-          <div class="col-sm-12 col-md-2 "> 
-              <div class="border p-2 mt-4" >
-                      <div>         <h3 class="text-secondary border-bottom"> Search </h3>
-                      </div>
-                      <div >                       
-                                <%= search_form_for @q do |f| %>
-                                   <h5 class="mt-3 mb-2"> <%= f.label :title_or_caption  %> </h5>
-                                    <%= f.text_field  :title_or_caption_cont, class: 'form-control',placeholder: "Search title / caption", :required => 'required' %>
-                                    <%= f.submit class: 'btn btn-primary mb-3 mt-2' %>
-                                <% end %>
-                      </div> 
-                      
-                        <div  > <h5 class="my-2">Tag</h5>
-                                  <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %> 
-                                     <%= text_field_tag :tag ,params[:tag] , class: 'form-control setwidthofTagInputElement', placeholder: "Search tag", :required => 'required'%> 
-                                     <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-primary mb-3 mt-2'%>  
-                                  <% end %>  
-                        </div>  
-                            
-            </div>              
-        </div>
     </div>
 </div>
 
