@@ -1,5 +1,5 @@
 class ImagegalleriesController < ApplicationController
-  before_action :set_imagegallery, only: [:show, :edit, :update, :destroy]
+  before_action :set_imagegallery, only: [:show, :edit, :update, :destroy ]
  
   # GET /imagegalleries
   # GET /imagegalleries.json
@@ -11,7 +11,6 @@ class ImagegalleriesController < ApplicationController
   # end
 
   def index
-
     @q = Imagegallery.ransack(params[:q])  
     if current_user && current_user.admin?     
       @imagegalleries = Imagegallery.all.page(params[:page])
@@ -21,8 +20,8 @@ class ImagegalleriesController < ApplicationController
       @q  = current_user.imagegalleries.ransack(params[:q])       
       @imagegalleries = @q.result.page(params[:page])
     end    
-    
   end
+
   # GET /imagegalleries/1
   # GET /imagegalleries/1.json
   def show
@@ -43,8 +42,7 @@ class ImagegalleriesController < ApplicationController
     @imagegallery = Imagegallery.new(imagegallery_params)
     @imagegallery.user = current_user
     respond_to do |format|
-      if @imagegallery.save
-
+      if @imagegallery.save        
         ImagegalleryMailer.new_imagegallery(@imagegallery).deliver_now
         format.html { redirect_to @imagegallery, notice: 'Imagegallery was successfully created.' }
         format.json { render :show, status: :created, location: @imagegallery }
@@ -63,7 +61,6 @@ class ImagegalleriesController < ApplicationController
           if current_user && current_user.admin?
             ImagegalleryMailer.edit_imagegallery(@imagegallery).deliver_now
           end
-
         format.html { redirect_to @imagegallery, notice: 'Imagegallery was successfully updated.' }
         format.json { render :show, status: :ok, location: @imagegallery }
       else
@@ -76,7 +73,6 @@ class ImagegalleriesController < ApplicationController
   # DELETE /imagegalleries/1
   # DELETE /imagegalleries/1.json
   def destroy     
-    
     if params[:attachment_id]
       @imagegallery.files.find_by_id(params[:attachment_id]).purge
     
@@ -97,7 +93,6 @@ class ImagegalleriesController < ApplicationController
       format.html { redirect_to imagegalleries_url, notice: 'Imagegallery was successfully destroyed.' }
       format.json { head :no_content } 
     end
-
   end
 
   # All Images shown here
@@ -130,40 +125,38 @@ class ImagegalleriesController < ApplicationController
 #   end
 # end
 
-def showallimages
- 
+  def showallimages 
+    if current_user && current_user.admin?
+      @imagegalleries = Imagegallery.all.page(params[:page])
+      @q = Imagegallery.ransack(params[:q])  
+      @imagegalleries = @q.result.page(params[:page])
+    elsif current_user
+    # @imagegalleries = current_user.imagegalleries.page(params[:page])
 
-  if current_user && current_user.admin?
     @imagegalleries = Imagegallery.all.page(params[:page])
-    @q = Imagegallery.ransack(params[:q])  
-    @imagegalleries = @q.result.page(params[:page])
-  elsif current_user
-   # @imagegalleries = current_user.imagegalleries.page(params[:page])
-
-   @imagegalleries = Imagegallery.all.page(params[:page])
-    redirect_to "/imagegalleries"
-    @q  = current_user.imagegalleries.ransack(params[:q])       
-    @imagegalleries = @q.result.page(params[:page])
-  else
-    @imagegalleries = Imagegallery.all.page(params[:page])
-    @q = Imagegallery.ransack(params[:q])  
-    @imagegalleries = @q.result.page(params[:page])
+      redirect_to "/imagegalleries"
+      @q  = current_user.imagegalleries.ransack(params[:q])       
+      @imagegalleries = @q.result.page(params[:page])
+    else
+      @imagegalleries = Imagegallery.all.page(params[:page])
+      @q = Imagegallery.ransack(params[:q])  
+      @imagegalleries = @q.result.page(params[:page])
+    end    
   end
-  
-end
 
-def showgallery
-  if current_user 
-    @imagegalleries = Imagegallery.all.page(params[:page])
-    @q = Imagegallery.ransack(params[:q])  
-    @imagegalleries = @q.result.page(params[:page])
+  def showgallery
+    if current_user 
+      @imagegalleries = Imagegallery.all.page(params[:page])
+      @q = Imagegallery.ransack(params[:q])  
+      @imagegalleries = @q.result.page(params[:page])
 
-  else
-    @imagegalleries = Imagegallery.all.page(params[:page])
-    @q = Imagegallery.ransack(params[:q])  
-    @imagegalleries = @q.result.page(params[:page])
+    else
+      @imagegalleries = Imagegallery.all.page(params[:page])
+      @q = Imagegallery.ransack(params[:q])  
+      @imagegalleries = @q.result.page(params[:page])
+    end
   end
-end
+
   def tagged
     if params[:tag].present?
       if current_user && current_user.admin?
@@ -178,17 +171,15 @@ end
     end
   end
  
-  
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_imagegallery
-      @imagegallery = Imagegallery.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_imagegallery
+    @imagegallery = Imagegallery.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def imagegallery_params
-      params.require(:imagegallery).permit(:title, :caption, :image , :tag_list)
-    end
+  # Only allow a list of trusted parameters through.
+  def imagegallery_params
+    params.require(:imagegallery).permit(:title, :caption, :tag_list, images: [] )
+  end
 
 end

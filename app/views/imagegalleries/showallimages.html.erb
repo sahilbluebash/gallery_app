@@ -69,41 +69,37 @@
           <div class=" col-sm-12 col-md-2">
           </div>
           <div class=" col-sm-12 col-md-8 ">
-           <div class="d-flex flex-wrap flex-row justify-content-start ">  
-          
+            <div class="d-flex flex-wrap flex-row  justify-content-center ">  
                   <% @imagegalleries.each do |imagegallery| %>
-
-                        <div class="card mt-4 mx-2" style="width:16rem;">      
-                     <%#>  <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %> 
-                         <%= link_to imagegallery  do %>
-                            <%= image_tag imagegallery.image , :class => "onHoverCardImg card-img-top img-fluid " %>
-                         <% end %> 
-                                <div class="card-body ">
-                                  <p class="card-text card-text-edit"><b>Title : </b> <%=   imagegallery.title  %> </p>                                           
-                                  <p class="card-text card-caption-edit text-justify"><b>Caption : </b><%=  imagegallery.caption  %>  </p>                                   
-                                  <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>          
-                               
-                                                     
-                                  <p class="card-text card-tag-edit "> 
-                                  <p><b>Tags : </b><%= imagegallery.tag_list %></p>                            
-                                  </p>                 
-                                  <p class="card-text d-flex flex-nowrap mt-1 mb-1"><small><b>Created on  : </b><%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
-                                  <p class="card-text d-flex flex-nowrap mb-1"><small><b>Updated on  : </b><%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
-                           
+                  <div class="card mt-4 mx-2 "  >      
+                            <div style="height:auto;" class="d-flex flex-wrap flex-row  justify-content-center ">
+                                <% (0...imagegallery.images.count).each do |image| %>
+                                <%= image_tag(imagegallery.images[image],style:'width:16rem', class:'img-fluid my-2 mx-2 rounded onHoverCardImg') %> 
+                               <%end%>
                             </div>
+                            <div class="text-center ">
+                                <p class="card-text card-text-edit mt-2 "><b>Title : </b><%=   imagegallery.title  %> </p>                       
+                                <p class="card-text card-caption-edit "><b> Caption : </b><%=  imagegallery.caption  %>  </p> 
+                                <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>                           
+                                                       
+                                <p class="card-text card-tag-edit "> 
+                                        <%# <p> Tags :<% imagegallery.tag_list.each do |tag|  <%= link_to tag, tag_path(tag: tag) %> 
+                                        <b>Tags : </b> <%= imagegallery.tag_list %>                            
+                                </p>                 
+                                <p class="card-text mt-1 mb-1"><small><b>Created on  : </b><%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
+                                <p class="card-text  mb-1"><small><b>Updated on  : </b><%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
 
-                         
-                              <div class="card-body d-flex  pt-2 ">                                  
-                                <a  class="card-link "><%= link_to 'Show', imagegallery %></a>
-                                <a  class="card-link flex-fill"><%= link_to 'Edit', edit_imagegallery_path(imagegallery) %></a>
-                                <a  class="card-link flex-fill"><%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } %></a>
-                              </div> 
-                           
-                        </div>
-
+                                <p  class="card-text d-flex justify-content-around my-2">
+                                  <%= link_to 'Show', imagegallery ,:class=>"btn btn-info"%>
+                                  <%= link_to 'Edit', edit_imagegallery_path(imagegallery) ,:class=>"btn btn-info"%>
+                                  <%= link_to 'Destroy', imagegallery, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-info"%>
+                                </p>
+                          </div>     
+                  </div>
                   <% end %>
-          </div> 
-         </div> 
+              </div> 
+          </div>
+    
             <div class="col-sm-12 col-md-2  "> 
                   <div class="border p-2 mt-4">
                       <div>         <h3 class="text-secondary border-bottom"> Search </h3>
@@ -118,10 +114,10 @@
                       </div> 
                       
                         <div  > <h5 class="my-2">Tag</h5>
-                                  <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %> 
-                                     <%= text_field_tag :tag ,params[:tag] , class: 'form-control setwidthofTagInputElement', placeholder: "Search tag", :required => 'required'%> 
-                                     <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-primary mb-3 mt-2'%>  
-                                  <% end %>  
+                                <%= form_tag tagged_path(tag: tag), :class => 'form-inline', :method => :get do  %> 
+                                    <%= text_field_tag :tag ,params[:tag] , class: 'form-control setwidthofTagInputElement', placeholder: "Search tag", :required => 'required'%> 
+                                    <%= submit_tag 'Search' , :name =>nil , :class => 'btn btn-primary mb-3 mt-2'%>  
+                                <% end %>  
                         </div>   
                             
                      </div>      
@@ -139,24 +135,26 @@
 
 
         <div class="container  ">
-           <div class="d-flex flex-wrap flex-row justify-content-start ">  
+                 <div class="d-flex flex-wrap flex-row justify-content-center ">  
           
                   <% @imagegalleries.each do |imagegallery| %>
 
-                        <div class="card mt-4 mx-2" style="width:16rem;">      
-                  <%=  image_tag(imagegallery.image , class:" onHoverCardImg card-img-top img-fluid ")  %>  
-                       
-                                <div class="card-body ">
-                                  <p class="card-text card-text-edit"> <b>Title : </b><%=   imagegallery.title  %> </p>                                           
-                                  <p class="card-text card-caption-edit text-justify"> <b> Caption : </b><%=  imagegallery.caption  %>  </p>                                   
-                                  <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>          
-                               
-                                 </div>
-                         
+                        <div class="card mt-4 mx-2" >      
+                               <div style="height:auto;" class="d-flex flex-wrap flex-row  justify-content-center ">
+                                  <% (0...imagegallery.images.count).each do |image| %>
+                                  <%= image_tag(imagegallery.images[image],style:'width:16rem', class:'img-fluid my-2 mx-2 rounded onHoverCardImg') %> 
+                                <%end%>
+                              </div>    
+                               <div class="text-center ">
+                                  <p class="card-text card-text-edit mt-2 "><b>Title : </b><%=   imagegallery.title  %> </p>                       
+                                  <p class="card-text card-caption-edit "><b> Caption : </b><%=  imagegallery.caption  %>  </p> 
+                                  <p class="card-text card-published-edit"><small><b>Published By : </b><%=   imagegallery.user.email.split('@')[0] %> </small></p>                           
+                                                                  
+                               </div>                                                        
                         </div>
 
                   <% end %>
-          </div>  
+               </div>  
         
         </div>
 

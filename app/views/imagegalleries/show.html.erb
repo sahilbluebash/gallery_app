@@ -7,11 +7,12 @@
             <strong>Title:</strong>
             <%= @imagegallery.title %>
           </p>
-
          
 
-          <div style="width:400px ; height:auto">
-              <%= image_tag(@imagegallery.image ,style: 'width:100% ') %>
+          <div style="height:auto" class="d-flex justify-content-center flex-wrap">
+              <% (0...@imagegallery.images.count).each do |image| %>
+              <%= image_tag(@imagegallery.images[image],style:'width:18rem', class:'img-fluid my-2 mx-2') %> 
+             <%end%>
           </div>
 
           <p class="my-3">
@@ -29,7 +30,6 @@
               <% else  %>                          
                         <%= link_to 'Back', imagegalleries_path, :class => 'btn btn-dark' %>                         
              <% end %>
-
 
           </p>
 </div>
