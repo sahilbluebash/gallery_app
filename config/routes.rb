@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   root 'imagegalleries#showallimages'
   
   devise_for :users, :controllers => {:registrations => "registrations"}
- 
+  
+  resources :imagegalleries do
+    member do
+    delete :delete_upload
+    end
+  end
 
 
  # get 'tags/:tag', to: 'imagegalleries#tagged',as: :tag

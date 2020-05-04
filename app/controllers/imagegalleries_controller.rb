@@ -72,18 +72,8 @@ class ImagegalleriesController < ApplicationController
 
   # DELETE /imagegalleries/1
   # DELETE /imagegalleries/1.json
-  def destroy     
-    if params[:attachment_id]
-      @imagegallery.files.find_by_id(params[:attachment_id]).purge
-    
-    # handle purge all
-    elsif params[:purge]
-      @imagegallery.files.purge
-      
-    # handle destroy resource
-    else
-      @imagegallery.destroy        
-    end
+  def destroy    
+    @imagegallery.destroy 
       
     if current_user && current_user.admin?
     ImagegalleryMailer.destroy_imagegallery(@imagegallery).deliver_now
@@ -95,6 +85,11 @@ class ImagegalleriesController < ApplicationController
     end
   end
 
+  def delete_upload
+    attachment = ActiveStorage::Attachment.find(params[:id])
+    attachment.purge 
+    redirect_back(fallback_location: imagegalleries_url)
+  end
  
   # All Images shown here
   # def showallimages    
