@@ -72,4 +72,3 @@ gem 'postgresql'
 
 gem 'ransack'
 
-gem 'pundit'
