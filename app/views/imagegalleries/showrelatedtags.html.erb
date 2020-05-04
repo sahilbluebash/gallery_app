@@ -39,10 +39,13 @@
               <% @imagegalleries.each do |imagegallery| %>
               <div class="card mt-4 mx-2" >      
                            <div style="height:auto;" class="d-flex flex-wrap flex-row  justify-content-center ">
-                              <% (0...imagegallery.images.count).each do |image| %>
-                              <%= image_tag(imagegallery.images[image],style:'width:16rem', class:'img-fluid my-2 mx-2 rounded onHoverCardImg') %> 
-                              <%end%>
-                           </div> 
+                             <% (0...imagegallery.images.count).each do |image| %>
+                                 <div class="d-flex flex-column flex-wrap">
+                                        <%= image_tag(imagegallery.images[image],style:'width:16rem', class:'img-fluid my-2 mx-2 rounded onHoverCardImg') %> 
+                                        <%= link_to 'Delete Image', delete_upload_imagegallery_url(imagegallery.images[image]), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info align-self-center" %>                             
+                                 </div>
+                                  <%end%>
+                            </div>
                             <div class="text-center">
                                     <p class="card-text card-text-edit mt-2"><b>Title : </b><%=   imagegallery.title  %> </p>                           
                                     <p class="card-text card-caption-edit"> <b>Caption : </b><%=  imagegallery.caption  %>  </p>  
