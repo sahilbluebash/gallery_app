@@ -95,6 +95,7 @@ class ImagegalleriesController < ApplicationController
     end
   end
 
+ 
   # All Images shown here
   # def showallimages    
   #   if user_signed_in?  
