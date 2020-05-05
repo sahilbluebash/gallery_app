@@ -141,7 +141,7 @@
                  <div class="d-flex flex-wrap flex-row justify-content-center ">  
           
                   <% @imagegalleries.each do |imagegallery| %>
-
+                        <% if imagegallery.public? %>
                         <div class="card mt-4 mx-2" >      
                                <div style="height:auto;" class="d-flex flex-wrap flex-row  justify-content-center ">
                                   <% (0...imagegallery.images.count).each do |image| %>
@@ -155,7 +155,7 @@
                                                                   
                                </div>                                                        
                         </div>
-
+                        <% end %>
                   <% end %>
                </div>  
         
