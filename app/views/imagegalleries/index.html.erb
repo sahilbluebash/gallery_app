@@ -55,6 +55,7 @@
         <div class=" col-sm-12 col-md-8 ">
             <div class="d-flex flex-wrap flex-row  justify-content-center ">  
                   <% @imagegalleries.each do |imagegallery| %>
+                  <% if imagegallery.public? || !current_user.admin? %> 
                   <div class="card mt-4 mx-2 "  >      
                             <div style="height:auto;" class="d-flex flex-wrap flex-row  justify-content-center ">
                              <% (0...imagegallery.images.count).each do |image| %>
@@ -74,7 +75,7 @@
                                 </p>                 
                                 <p class="card-text mt-1 mb-1"><small><b>Created on  : </b><%= imagegallery.created_at.to_s.split(' ')[0] %>  </small>  </p>
                                 <p class="card-text  mb-1"><small><b>Updated on  : </b><%= imagegallery.updated_at.to_s.split(' ')[0] %>   </small> </p>
-
+                                
                                 <p  class="card-text d-flex justify-content-around my-2">
                                   <%= link_to 'Show', imagegallery ,:class=>"btn btn-info"%>
                                   <%= link_to 'Edit', edit_imagegallery_path(imagegallery) ,:class=>"btn btn-info"%>
@@ -82,6 +83,7 @@
                                 </p>
                           </div>     
                   </div>
+                  <% end %>
                   <% end %>
               </div> 
          </div>
