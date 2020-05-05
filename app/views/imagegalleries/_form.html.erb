@@ -22,25 +22,31 @@
 <div class="d-flex flex-column my-3">
   
         <div class="field divLabelNew ">
-        <p class="bg-secondary text-white p-1 "> <%= form.label :title %> </p>
+         <p class="bg-secondary text-white p-1 "> <%= form.label :title %> </p>
           <p ><%= form.text_field :title   , :class => 'text-box-size-new'  %></p>
         </div>
         
          <div class="field divLabelNew ">
-        <p class="bg-secondary text-white p-1 "> <%= form.label :tag_list ,"Tags (seperated by commas)" %></p>
+          <p class="bg-secondary text-white p-1 "> <%= form.label :tag_list ,"Tags (seperated by commas)" %></p>
           <p ><%= form.text_field :tag_list  , :class => 'text-box-size-new'  %></p>
         </div>
 
 
         <div class="field divImageNew ">
-        <p class="bg-secondary text-white p-1 " > <%= form.label :images %> </h6><p>
-        <%= form.file_field :images , multiple: true %>
+          <p class="bg-secondary text-white p-1 " > <%= form.label :images %> </h6><p>
+          <%= form.file_field :images , multiple: true %>
         </div>
 
         <div class="field divCaptionNew ">
-        <p class="bg-secondary text-white p-1 "> <%= form.label :caption %></p>
-        <p> <%= form.text_area :caption, :class => 'text-box-size-new'  %></p>
+          <p class="bg-secondary text-white p-1 "> <%= form.label :caption %></p>
+          <p> <%= form.text_area :caption, :class => 'text-box-size-new'  %></p>
         </div>
+
+        <div class="form-group p-1 d-flex flex-row align-items-center">
+          <b><%= form.label :public,"Post Status" ,:class=>'text-black' %></b><br />
+          <p class="mx-2 white"> <%= form.radio_button :public, false  %> Private</p>
+          <p class="white"><%= form.radio_button :public, true  %> Public</p>
+       </div>
 
         <div class="actions ">
        <%= form.submit 'Submit', :class => 'btn btn-success' %> 
